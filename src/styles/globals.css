@@ -1,0 +1,40 @@
+:root {
+  --primary: #630ed4;
+  --primary-container: #7c3aed;
+  --secondary: #2170e4;
+  --background: #f9f9ff;
+  --surface: #ffffff;
+  --surface-container: #f0f3ff;
+  --text: #151c27;
+  --text-muted: #4a4455;
+  --outline: #ccc3d8;
+  --error: #ba1a1a;
+  --success: #34d399;
+
+  --radius-sm: 4px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Inter, Arial, sans-serif;
+  background: var(--background);
+  color: var(--text);
+}
+
+button,
+input {
+  font-family: inherit;
+}
