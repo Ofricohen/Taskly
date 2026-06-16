@@ -1,16 +1,50 @@
-# React + Vite
+# Taskly
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Taskly is a modern task management web application built with React and Vite.
 
-Currently, two official plugins are available:
+The app helps users organize, create, edit, and track their daily tasks in a clean and user-friendly interface.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Features
 
-## React Compiler
+- Login screen
+- Today dashboard
+- Add task screen
+- Edit task screen
+- Task details screen
+- Navigation between pages
+- Design system based on DESIGN.md
+- Dummy placeholder data without backend connection
+- Responsive mobile-first layout
+- React Router navigation flow
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Technologies
 
-## Expanding the ESLint configuration
+- React
+- Vite
+- React Router
+- CSS
+- GitHub
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Project Structure
+
+```text
+src
+├── components
+│   ├── Navbar.jsx
+│   └── Footer.jsx
+├── pages
+│   ├── Login.jsx
+│   ├── Today.jsx
+│   ├── AddTask.jsx
+│   ├── EditTask.jsx
+│   └── TaskDetails.jsx
+├── styles
+│   └── globals.css
+├── App.jsx
+└── main.jsx
+```
+
+## Notes
+
+This project is a frontend prototype.
+All task data is currently placeholder/dummy data and there is no backend connection.
