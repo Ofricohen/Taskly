@@ -20,6 +20,8 @@
   --space-md: 16px;
   --space-lg: 24px;
   --space-xl: 32px;
+  --shadow-sm: 0 4px 20px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 18px 50px rgba(99, 14, 212, 0.12);
 }
 
 * {
