@@ -6,6 +6,8 @@ import Today from "./pages/Today";
 import AddTask from "./pages/AddTask";
 import TaskDetails from "./pages/TaskDetails";
 import EditTask from "./pages/EditTask";
+import Register from "./pages/Register";
+import ForgotPassword from "./pages/ForgotPassword";
 
 function App() {
   return (
@@ -18,6 +20,8 @@ function App() {
         <Route path="/add-task" element={<AddTask />} />
         <Route path="/task-details" element={<TaskDetails />} />
         <Route path="/edit-task" element={<EditTask />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
       </Routes>
     </BrowserRouter>
   );

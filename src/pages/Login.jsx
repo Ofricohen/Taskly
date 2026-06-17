@@ -24,18 +24,21 @@ function Login() {
             <label htmlFor="email">Email Address</label>
             <div className="input-wrapper">
               <span className="input-icon">✉</span>
-              <input
-                id="email"
-                type="email"
-                placeholder="name@university.edu"
-              />
+              <input id="email" type="email" placeholder="name@example.com" />
             </div>
           </div>
 
           <div className="field-group">
             <div className="password-label-row">
               <label htmlFor="password">Password</label>
-              <a href="#">Forgot Password?</a>
+
+              <button
+                className="text-link"
+                type="button"
+                onClick={() => navigate("/forgot-password")}
+              >
+                Forgot Password?
+              </button>
             </div>
 
             <div className="input-wrapper">
@@ -71,7 +74,14 @@ function Login() {
         </form>
 
         <p className="signup-text">
-          New to Taskly? <a href="#">Sign up</a>
+          New to Taskly?{" "}
+          <button
+            className="signup-link"
+            type="button"
+            onClick={() => navigate("/register")}
+          >
+            Sign up
+          </button>
         </p>
       </section>
     </main>

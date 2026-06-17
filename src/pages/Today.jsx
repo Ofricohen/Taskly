@@ -74,7 +74,7 @@ function Today() {
         </header>
 
         <section className="today-title">
-          <h1>Good morning, Alex!</h1>
+          <h1>Good morning, Ofri!</h1>
           <p>Wednesday, June 17</p>
         </section>
 

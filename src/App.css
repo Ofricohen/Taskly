@@ -19,8 +19,8 @@
       rgba(124, 58, 237, 0.08),
       transparent 34%
     ),
-    linear-gradient(180deg, #ffffff 0%, #f9f9ff 100%);
-  box-shadow: 0 18px 50px rgba(99, 14, 212, 0.12);
+    var(--login-bg-gradient);
+  box-shadow: var(--shadow-md);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -30,14 +30,14 @@
   width: 62px;
   height: 62px;
   border-radius: 14px;
-  background: linear-gradient(135deg, #7c3aed, #630ed4);
-  color: white;
+  background: var(--primary-gradient);
+  color: var(--white);
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 3px;
   font-size: 26px;
-  font-weight: 800;
+  font-weight: 700;
   margin-bottom: 14px;
   box-shadow: 0 8px 20px rgba(99, 14, 212, 0.28);
 }
@@ -69,7 +69,7 @@
   border: 1px solid var(--outline);
   border-radius: 12px;
   padding: 22px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+  box-shadow: var(--shadow-sm);
 }
 
 .form-heading {
@@ -129,7 +129,7 @@
 }
 
 .input-wrapper:focus-within {
-  background: white;
+  background: var(--white);
   outline: 2px solid var(--primary-container);
 }
 
@@ -152,7 +152,7 @@
 }
 
 .input-wrapper input::placeholder {
-  color: #7b7487;
+  color: var(--placeholder);
 }
 
 .keep-row {
@@ -176,11 +176,11 @@
   height: 56px;
   border: none;
   border-radius: 8px;
-  background: linear-gradient(135deg, #7c3aed, #630ed4);
-  color: white;
+  background: var(--primary-gradient);
+  color: var(--white);
   font-size: 18px;
   line-height: 24px;
-  font-weight: 800;
+  font-weight: 700;
   cursor: pointer;
   box-shadow: 0 8px 18px rgba(99, 14, 212, 0.25);
   margin-bottom: 22px;
@@ -216,7 +216,7 @@
   height: 44px;
   border: 1px solid var(--outline);
   border-radius: 8px;
-  background: white;
+  background: var(--white);
   color: var(--text);
   font-size: 13px;
   font-weight: 700;
@@ -233,7 +233,7 @@
 .signup-text a {
   color: var(--primary);
   font-size: 18px;
-  font-weight: 800;
+  font-weight: 700;
   text-decoration: none;
 }
 
@@ -276,7 +276,7 @@
 
 .today-brand {
   color: var(--primary);
-  font-weight: 800;
+  font-weight: 700;
   margin-bottom: 10px;
 }
 
@@ -300,8 +300,8 @@
 }
 
 .progress-card {
-  background: linear-gradient(135deg, #7c3aed, #630ed4);
-  color: white;
+  background: var(--primary-gradient);
+  color: var(--white);
   padding: 18px;
   border-radius: 14px;
   margin-bottom: 16px;
@@ -329,7 +329,7 @@
   display: block;
   width: 75%;
   height: 100%;
-  background: white;
+  background: var(--white);
   border-radius: 999px;
 }
 
@@ -352,7 +352,7 @@
   align-items: center;
   justify-content: center;
   color: var(--primary);
-  font-weight: 800;
+  font-weight: 700;
 }
 
 .task-list h3 {
@@ -364,8 +364,8 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  background: white;
-  border: 1px solid #f3f4f6;
+  background: var(--white);
+  border: 1px solid var(--border-light);
   border-radius: 12px;
   padding: 14px;
   margin-bottom: 10px;
@@ -414,7 +414,7 @@
   border: none;
   border-radius: 50%;
   background: var(--primary);
-  color: white;
+  color: var(--white);
   font-size: 30px;
   cursor: pointer;
   box-shadow: 0 8px 20px rgba(99, 14, 212, 0.28);
@@ -504,7 +504,7 @@
 
 .priority-row .active {
   background: var(--primary-container);
-  color: white;
+  color: var(--white);
   font-weight: 700;
 }
 
@@ -514,9 +514,9 @@
   border: none;
   border-radius: 12px;
   background: var(--primary-container);
-  color: white;
+  color: var(--white);
   font-size: 16px;
-  font-weight: 800;
+  font-weight: 700;
   cursor: pointer;
 }
 
@@ -547,7 +547,7 @@
 
 .details-brand {
   color: var(--primary);
-  font-weight: 800;
+  font-weight: 700;
 }
 
 .edit-button {
@@ -561,7 +561,7 @@
 .project-tag {
   display: inline-block;
   background: var(--primary-container);
-  color: white;
+  color: var(--white);
   font-size: 11px;
   font-weight: 700;
   padding: 4px 8px;
@@ -587,7 +587,7 @@
 .details-label {
   font-size: 11px;
   color: var(--primary);
-  font-weight: 800;
+  font-weight: 700;
   text-transform: uppercase;
   margin-bottom: 6px;
 }
@@ -604,7 +604,7 @@
 
 .priority-line {
   height: 8px;
-  background: #e8def8;
+  background: var(--soft-purple-bg);
   border-radius: 999px;
   margin: 8px 0;
 }
@@ -637,8 +637,8 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  background: white;
-  border: 1px solid #f3f4f6;
+  background: var(--white);
+  border: 1px solid var(--border-light);
   border-radius: 10px;
   padding: 12px;
   margin-bottom: 10px;
@@ -655,8 +655,8 @@
   border: none;
   border-radius: 12px;
   background: var(--primary-container);
-  color: white;
-  font-weight: 800;
+  color: var(--white);
+  font-weight: 700;
   cursor: pointer;
   margin-top: 12px;
 }
@@ -709,18 +709,12 @@
 
 .footer-item.active {
   background: var(--primary-container);
-  color: white;
+  color: var(--white);
   min-width: 58px;
   height: 48px;
   border-radius: 999px;
 }
 
-.footer button:first-child {
-  background: var(--primary-container);
-  color: white;
-  padding: 10px 14px;
-  border-radius: 999px;
-}
 .brand-row {
   display: flex;
   align-items: center;
@@ -770,24 +764,24 @@
 }
 
 .section-title.high span {
-  background: #c81a42;
+  background: var(--priority-high);
 }
 
 .section-title.medium span {
-  background: #2170e4;
+  background: var(--priority-medium);
 }
 
 .section-title h3 {
   font-size: 16px;
-  font-weight: 800;
+  font-weight: 700;
 }
 
 .task-card.high .task-checkbox {
-  accent-color: #c81a42;
+  accent-color: var(--priority-high);
 }
 
 .task-card.medium .task-checkbox {
-  accent-color: #2170e4;
+  accent-color: var(--priority-medium);
 }
 
 .task-meta {
@@ -807,19 +801,277 @@
 }
 
 .task-tag.high {
-  background: #ffdadb;
-  color: #a0002f;
+  background: var(--priority-high-bg);
 }
 
 .task-tag.medium {
-  background: #d8e2ff;
-  color: #0058be;
+  background: var(--priority-medium-bg);
 }
 
 .task-card.high {
-  border-color: #ffdadb;
+  border-color: var(--priority-high-bg);
 }
 
 .task-card.medium {
-  border-color: #d8e2ff;
+  border-color: var(--priority-medium-bg);
+}
+
+.register-shell {
+  background:
+    radial-gradient(
+      circle at top left,
+      rgba(124, 58, 237, 0.2),
+      transparent 35%
+    ),
+    var(--register-bg-gradient);
+}
+
+.register-tagline {
+  max-width: 260px;
+  margin-bottom: 28px;
+}
+
+.register-form {
+  box-shadow: var(--shadow-sm);
+}
+
+.register-button {
+  border-radius: 999px;
+  margin-top: 4px;
+}
+
+.signin-text {
+  text-align: center;
+  font-size: 14px;
+  color: var(--text-muted);
+  margin-bottom: 18px;
+}
+
+.signin-text button {
+  border: none;
+  background: transparent;
+  color: var(--primary);
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.register-divider p {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.terms-text {
+  max-width: 290px;
+  margin-top: 26px;
+  text-align: center;
+  font-size: 11px;
+  line-height: 16px;
+  color: var(--text-muted);
+}
+
+.terms-text a {
+  color: var(--text-muted);
+  font-weight: 700;
+}
+
+.forgot-shell {
+  width: 100%;
+  max-width: 390px;
+  min-height: 760px;
+  background: var(--forgot-bg-gradient);
+  border-radius: 18px;
+  padding: 28px 20px;
+  box-shadow: var(--shadow-md);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.forgot-back {
+  position: absolute;
+  top: 22px;
+  left: 22px;
+  border: none;
+  background: transparent;
+  color: var(--text);
+  font-size: 28px;
+  cursor: pointer;
+}
+
+.forgot-shell .login-logo {
+  margin-top: 10px;
+  margin-bottom: 22px;
+}
+
+.forgot-title {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 14px;
+  text-align: center;
+}
+
+.forgot-text {
+  max-width: 280px;
+  text-align: center;
+  font-size: 16px;
+  line-height: 26px;
+  color: var(--text);
+  margin-bottom: 54px;
+}
+
+.forgot-form {
+  width: 100%;
+  background: var(--surface);
+  border-radius: 22px;
+  padding: 28px;
+  box-shadow: var(--shadow-sm);
+  border: none;
+  margin-bottom: 28px;
+}
+
+.forgot-form label {
+  display: block;
+  font-size: 13px;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.forgot-form .input-wrapper {
+  height: 56px;
+  margin-bottom: 22px;
+  border-radius: 14px;
+}
+
+.forgot-form .primary-button {
+  height: 54px;
+  border-radius: 14px;
+  margin-bottom: 0;
+}
+
+.back-to-login {
+  margin-top: 0;
+  border: none;
+  background: transparent;
+  color: var(--primary);
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.text-link,
+.signup-link {
+  border: none;
+  background: transparent;
+  color: var(--primary);
+  font-family: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.text-link {
+  font-size: 12px;
+  line-height: 16px;
+  margin-bottom: 8px;
+}
+
+.signup-link {
+  font-size: 18px;
+}
+
+.add-task-shell {
+  background:
+    radial-gradient(
+      circle at top right,
+      var(--brand-radial-light),
+      transparent 32%
+    ),
+    var(--login-bg-gradient);
+}
+
+.add-task-form {
+  gap: 16px;
+}
+
+.task-title-input {
+  height: 84px;
+  font-size: 22px !important;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.task-title-input::placeholder {
+  color: var(--outline);
+}
+
+.form-card {
+  background: var(--surface);
+  border: 1px solid var(--border-light);
+  border-radius: 14px;
+  padding: 16px;
+  box-shadow: var(--shadow-sm);
+}
+
+.form-card label,
+.category-section label {
+  display: block;
+  color: var(--text-muted);
+  font-size: 11px;
+  line-height: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.form-card textarea,
+.form-card input {
+  padding: 0;
+  background: transparent;
+  border-radius: 0;
+}
+
+.form-card textarea {
+  min-height: 92px;
+}
+
+.category-section {
+  margin-top: 4px;
+}
+
+.category-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.category-row button {
+  min-width: 72px;
+  height: 38px;
+  border: 1px solid var(--outline);
+  border-radius: 999px;
+  background: var(--surface-container);
+  color: var(--text-muted);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.category-row button.active {
+  background: var(--primary);
+  color: var(--white);
+  border-color: var(--primary);
+}
+
+.category-row .add-category {
+  min-width: 38px;
+  width: 38px;
+  background: var(--surface-container);
+  color: var(--primary);
+  font-size: 22px;
+}
+
+.add-task-form .create-task-btn {
+  margin-top: 34px;
+  box-shadow: var(--shadow-md);
 }

@@ -1,7 +1,10 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap");
+
 :root {
   --primary: #630ed4;
   --primary-container: #7c3aed;
-  --secondary: #2170e4;
+  --secondary: #0058be;
+  --secondary-container: #2170e4;
   --background: #f9f9ff;
   --surface: #ffffff;
   --surface-container: #f0f3ff;
@@ -22,6 +25,69 @@
   --space-xl: 32px;
   --shadow-sm: 0 4px 20px rgba(0, 0, 0, 0.04);
   --shadow-md: 0 18px 50px rgba(99, 14, 212, 0.12);
+  --font-family: "Inter", Arial, sans-serif;
+
+  --font-display-size: 30px;
+  --font-display-weight: 700;
+  --font-display-line: 38px;
+
+  --font-headline-lg-size: 24px;
+  --font-headline-lg-weight: 600;
+  --font-headline-lg-line: 32px;
+
+  --font-headline-md-size: 20px;
+  --font-headline-md-weight: 600;
+  --font-headline-md-line: 28px;
+
+  --font-title-lg-size: 18px;
+  --font-title-lg-weight: 600;
+  --font-title-lg-line: 24px;
+
+  --font-body-md-size: 14px;
+  --font-body-md-weight: 400;
+  --font-body-md-line: 20px;
+
+  --font-label-md-size: 12px;
+  --font-label-md-weight: 500;
+  --font-label-md-line: 16px;
+  --placeholder: #7b7487;
+  --border-light: #f3f4f6;
+
+  --priority-high: #c81a42;
+  --priority-high-bg: #ffdadb;
+
+  --priority-medium: #2170e4;
+  --priority-medium-bg: #d8e2ff;
+
+  --soft-purple-bg: #e8def8;
+  --white-transparent: rgba(255, 255, 255, 0.92);
+  --white: #ffffff;
+  --login-gradient-end: #f9f9ff;
+  --register-gradient-end: #eef6ff;
+  --forgot-gradient-end: #f8f8ff;
+
+  --primary-gradient: linear-gradient(135deg, #7c3aed, #630ed4);
+  --login-bg-gradient: linear-gradient(180deg, #ffffff 0%, #f9f9ff 100%);
+  --register-bg-gradient: linear-gradient(180deg, #ffffff 0%, #eef6ff 100%);
+  --forgot-bg-gradient: linear-gradient(180deg, #ffffff 0%, #f8f8ff 100%);
+
+  --purple-glow-sm: rgba(99, 14, 212, 0.12);
+  --purple-glow-md: rgba(99, 14, 212, 0.25);
+  --purple-glow-lg: rgba(99, 14, 212, 0.28);
+  --white-progress: rgba(255, 255, 255, 0.28);
+  --white: #ffffff;
+
+  --purple-glow-sm: rgba(99, 14, 212, 0.12);
+  --purple-glow-md: rgba(99, 14, 212, 0.25);
+  --purple-glow-lg: rgba(99, 14, 212, 0.28);
+
+  --shadow-hover: 0 8px 24px rgba(99, 14, 212, 0.12);
+  --shadow-footer: 0 10px 30px rgba(99, 14, 212, 0.16);
+
+  --progress-track: rgba(255, 255, 255, 0.28);
+
+  --brand-radial-light: rgba(124, 58, 237, 0.08);
+  --brand-radial-strong: rgba(124, 58, 237, 0.2);
 }
 
 * {
@@ -31,7 +97,7 @@
 }
 
 body {
-  font-family: Inter, Arial, sans-serif;
+  font-family: var(--font-family);
   background: var(--background);
   color: var(--text);
 }
