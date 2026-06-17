@@ -12,6 +12,7 @@ import Profile from "./pages/Profile";
 import Settings from "./pages/Settings";
 import EmptyState from "./pages/EmptyState";
 import LoadingScreen from "./pages/LoadingScreen";
+import ErrorScreen from "./pages/ErrorScreen";
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
         <Route path="/settings" element={<Settings />} />
         <Route path="/empty-state" element={<EmptyState />} />
         <Route path="/loading" element={<LoadingScreen />} />
+        <Route path="/error" element={<ErrorScreen />} />
       </Routes>
     </BrowserRouter>
   );

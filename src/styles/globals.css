@@ -88,6 +88,8 @@
   --settings-blue-bg: #dbeafe;
   --upgrade-button-bg: rgba(255, 255, 255, 0.35);
   --spinner-track: #d9c8ff;
+  --radius-xl: 18px;
+  --radius-pill: 999px;
 }
 
 * {
