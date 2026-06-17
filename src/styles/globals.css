@@ -84,6 +84,9 @@
   --error-container: #ffdad6;
   --shadow-button: 0 8px 18px var(--purple-glow-md);
   --shadow-logo: 0 8px 20px var(--purple-glow-lg);
+  --settings-purple-bg: #f3e8ff;
+  --settings-blue-bg: #dbeafe;
+  --upgrade-button-bg: rgba(255, 255, 255, 0.35);
 }
 
 * {
