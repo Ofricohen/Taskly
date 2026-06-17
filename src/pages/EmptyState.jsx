@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { FiBell, FiPlusCircle } from "react-icons/fi";
+import { FiBell, FiPlusCircle, FiUser } from "react-icons/fi";
 import Footer from "../components/Footer";
 import emptyStateImage from "../assets/empty-state.png";
 
@@ -11,7 +11,9 @@ function EmptyState() {
       <section className="empty-shell">
         <header className="empty-header">
           <div className="brand-row">
-            <div className="avatar">☻</div>
+            <div className="avatar">
+              <FiUser size={16} />
+            </div>
             <p className="today-brand">Taskly</p>
           </div>
 

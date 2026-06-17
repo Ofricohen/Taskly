@@ -87,6 +87,7 @@
   --settings-purple-bg: #f3e8ff;
   --settings-blue-bg: #dbeafe;
   --upgrade-button-bg: rgba(255, 255, 255, 0.35);
+  --spinner-track: #d9c8ff;
 }
 
 * {

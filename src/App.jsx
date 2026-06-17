@@ -11,6 +11,7 @@ import ForgotPassword from "./pages/ForgotPassword";
 import Profile from "./pages/Profile";
 import Settings from "./pages/Settings";
 import EmptyState from "./pages/EmptyState";
+import LoadingScreen from "./pages/LoadingScreen";
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
         <Route path="/profile" element={<Profile />} />
         <Route path="/settings" element={<Settings />} />
         <Route path="/empty-state" element={<EmptyState />} />
+        <Route path="/loading" element={<LoadingScreen />} />
       </Routes>
     </BrowserRouter>
   );
