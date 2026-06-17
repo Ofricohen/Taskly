@@ -1,4 +1,11 @@
 import { useNavigate } from "react-router-dom";
+import {
+  FiCalendar,
+  FiCheckSquare,
+  FiPlusCircle,
+  FiSettings,
+  FiUser,
+} from "react-icons/fi";
 
 function Footer() {
   const navigate = useNavigate();
@@ -6,27 +13,27 @@ function Footer() {
   return (
     <footer className="footer">
       <button className="footer-item active" onClick={() => navigate("/today")}>
-        <span>▣</span>
+        <FiCalendar size={20} />
         <small>Today</small>
       </button>
 
       <button className="footer-item" onClick={() => navigate("/task-details")}>
-        <span>☑</span>
+        <FiCheckSquare size={20} />
         <small>Tasks</small>
       </button>
 
       <button className="footer-item" onClick={() => navigate("/add-task")}>
-        <span>⊕</span>
+        <FiPlusCircle size={20} />
         <small>Add</small>
       </button>
 
       <button className="footer-item" onClick={() => navigate("/settings")}>
-        <span>⚙</span>
+        <FiSettings size={20} />
         <small>Settings</small>
       </button>
 
       <button className="footer-item" onClick={() => navigate("/profile")}>
-        <span>☻</span>
+        <FiUser size={20} />
         <small>Profile</small>
       </button>
     </footer>

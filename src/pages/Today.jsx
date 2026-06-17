@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import Footer from "../components/Footer";
+import { FiBell, FiClock, FiMoreVertical, FiPlus } from "react-icons/fi";
 
 const tasks = [
   {
@@ -47,16 +48,21 @@ function Today() {
         <h4>{task.title}</h4>
 
         <div className="task-meta">
-          <span>⏰ {task.time}</span>
+          <span className="task-time">
+            <FiClock size={12} />
+            {task.time}
+          </span>
+
           <span className={`task-tag ${task.priority}`}>{task.category}</span>
         </div>
       </div>
 
       <button
         className="more-button"
+        type="button"
         onClick={(event) => event.stopPropagation()}
       >
-        ⋮
+        <FiMoreVertical size={18} />
       </button>
     </article>
   );
@@ -70,7 +76,9 @@ function Today() {
             <p className="today-brand">Taskly</p>
           </div>
 
-          <button className="icon-button">♧</button>
+          <button className="icon-button" type="button">
+            <FiBell size={18} />
+          </button>
         </header>
 
         <section className="today-title">
@@ -110,8 +118,12 @@ function Today() {
           {mediumTasks.map(renderTask)}
         </section>
 
-        <button className="floating-add" onClick={() => navigate("/add-task")}>
-          +
+        <button
+          className="floating-add"
+          type="button"
+          onClick={() => navigate("/add-task")}
+        >
+          <FiPlus size={28} />
         </button>
 
         <Footer />

@@ -5,14 +5,46 @@
   --primary-container: #7c3aed;
   --secondary: #0058be;
   --secondary-container: #2170e4;
+
   --background: #f9f9ff;
   --surface: #ffffff;
   --surface-container: #f0f3ff;
   --text: #151c27;
   --text-muted: #4a4455;
   --outline: #ccc3d8;
+  --placeholder: #7b7487;
+  --border-light: #f3f4f6;
+  --white: #ffffff;
+
   --error: #ba1a1a;
   --success: #34d399;
+
+  --priority-high: #c81a42;
+  --priority-high-bg: #ffdadb;
+  --priority-medium: #2170e4;
+  --priority-medium-bg: #d8e2ff;
+
+  --soft-purple-bg: #e8def8;
+  --progress-track: rgba(255, 255, 255, 0.28);
+  --white-transparent: rgba(255, 255, 255, 0.92);
+
+  --primary-gradient: linear-gradient(135deg, #7c3aed, #630ed4);
+  --login-bg-gradient: linear-gradient(180deg, #ffffff 0%, #f9f9ff 100%);
+  --register-bg-gradient: linear-gradient(180deg, #ffffff 0%, #eef6ff 100%);
+  --forgot-bg-gradient: linear-gradient(180deg, #ffffff 0%, #f8f8ff 100%);
+
+  --brand-radial-light: rgba(124, 58, 237, 0.08);
+  --brand-radial-strong: rgba(124, 58, 237, 0.2);
+
+  --purple-glow-sm: rgba(99, 14, 212, 0.12);
+  --purple-glow-md: rgba(99, 14, 212, 0.25);
+  --purple-glow-lg: rgba(99, 14, 212, 0.28);
+
+  --shadow-sm: 0 4px 20px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 18px 50px var(--purple-glow-sm);
+  --shadow-hover: 0 8px 24px var(--purple-glow-sm);
+  --shadow-footer: 0 10px 30px rgba(99, 14, 212, 0.16);
+  --shadow-fab: 0 8px 20px var(--purple-glow-lg);
 
   --radius-sm: 4px;
   --radius-md: 12px;
@@ -23,8 +55,7 @@
   --space-md: 16px;
   --space-lg: 24px;
   --space-xl: 32px;
-  --shadow-sm: 0 4px 20px rgba(0, 0, 0, 0.04);
-  --shadow-md: 0 18px 50px rgba(99, 14, 212, 0.12);
+
   --font-family: "Inter", Arial, sans-serif;
 
   --font-display-size: 30px;
@@ -50,44 +81,9 @@
   --font-label-md-size: 12px;
   --font-label-md-weight: 500;
   --font-label-md-line: 16px;
-  --placeholder: #7b7487;
-  --border-light: #f3f4f6;
-
-  --priority-high: #c81a42;
-  --priority-high-bg: #ffdadb;
-
-  --priority-medium: #2170e4;
-  --priority-medium-bg: #d8e2ff;
-
-  --soft-purple-bg: #e8def8;
-  --white-transparent: rgba(255, 255, 255, 0.92);
-  --white: #ffffff;
-  --login-gradient-end: #f9f9ff;
-  --register-gradient-end: #eef6ff;
-  --forgot-gradient-end: #f8f8ff;
-
-  --primary-gradient: linear-gradient(135deg, #7c3aed, #630ed4);
-  --login-bg-gradient: linear-gradient(180deg, #ffffff 0%, #f9f9ff 100%);
-  --register-bg-gradient: linear-gradient(180deg, #ffffff 0%, #eef6ff 100%);
-  --forgot-bg-gradient: linear-gradient(180deg, #ffffff 0%, #f8f8ff 100%);
-
-  --purple-glow-sm: rgba(99, 14, 212, 0.12);
-  --purple-glow-md: rgba(99, 14, 212, 0.25);
-  --purple-glow-lg: rgba(99, 14, 212, 0.28);
-  --white-progress: rgba(255, 255, 255, 0.28);
-  --white: #ffffff;
-
-  --purple-glow-sm: rgba(99, 14, 212, 0.12);
-  --purple-glow-md: rgba(99, 14, 212, 0.25);
-  --purple-glow-lg: rgba(99, 14, 212, 0.28);
-
-  --shadow-hover: 0 8px 24px rgba(99, 14, 212, 0.12);
-  --shadow-footer: 0 10px 30px rgba(99, 14, 212, 0.16);
-
-  --progress-track: rgba(255, 255, 255, 0.28);
-
-  --brand-radial-light: rgba(124, 58, 237, 0.08);
-  --brand-radial-strong: rgba(124, 58, 237, 0.2);
+  --error-container: #ffdad6;
+  --shadow-button: 0 8px 18px var(--purple-glow-md);
+  --shadow-logo: 0 8px 20px var(--purple-glow-lg);
 }
 
 * {
@@ -103,6 +99,7 @@ body {
 }
 
 button,
-input {
+input,
+textarea {
   font-family: inherit;
 }
