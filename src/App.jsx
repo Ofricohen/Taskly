@@ -10,6 +10,7 @@ import Register from "./pages/Register";
 import ForgotPassword from "./pages/ForgotPassword";
 import Profile from "./pages/Profile";
 import Settings from "./pages/Settings";
+import EmptyState from "./pages/EmptyState";
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/settings" element={<Settings />} />
+        <Route path="/empty-state" element={<EmptyState />} />
       </Routes>
     </BrowserRouter>
   );

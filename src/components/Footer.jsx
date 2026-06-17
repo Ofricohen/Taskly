@@ -15,7 +15,9 @@ function Footer() {
     <footer className="footer">
       <button
         className={`footer-item ${
-          location.pathname === "/today" ? "active" : ""
+          location.pathname === "/today" || location.pathname === "/empty-state"
+            ? "active"
+            : ""
         }`}
         onClick={() => navigate("/today")}
       >
