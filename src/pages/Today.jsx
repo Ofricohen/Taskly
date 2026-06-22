@@ -35,20 +35,46 @@ function Today() {
     setTasks(data || []);
   };
 
-  const completedTasks = tasks.filter((task) => task.is_completed);
-  const activeTasks = tasks.filter((task) => !task.is_completed);
+  const isToday = (dateValue) => {
+    if (!dateValue) return false;
 
-  const highTasks = tasks.filter(
+    const taskDate = new Date(dateValue);
+    const today = new Date();
+
+    return (
+      taskDate.getDate() === today.getDate() &&
+      taskDate.getMonth() === today.getMonth() &&
+      taskDate.getFullYear() === today.getFullYear()
+    );
+  };
+
+  const isOverdue = (task) => {
+    if (!task.due_date || task.is_completed) return false;
+
+    return new Date(task.due_date) < new Date();
+  };
+
+  const todayTasks = tasks.filter((task) => {
+    if (task.is_completed) return false;
+
+    return isToday(task.due_date) || isOverdue(task) || !task.due_date;
+  });
+
+  const completedTodayTasks = tasks.filter(
+    (task) => task.is_completed && isToday(task.updated_at),
+  );
+
+  const highTasks = todayTasks.filter(
     (task) => task.priority?.toLowerCase() === "high",
   );
 
-  const mediumTasks = tasks.filter(
+  const mediumTasks = todayTasks.filter(
     (task) =>
       task.priority?.toLowerCase() === "med" ||
       task.priority?.toLowerCase() === "medium",
   );
 
-  const lowTasks = tasks.filter(
+  const lowTasks = todayTasks.filter(
     (task) => task.priority?.toLowerCase() === "low",
   );
 
@@ -57,9 +83,7 @@ function Today() {
 
     return (
       <article
-        className={`task-card ${priorityClass} ${
-          task.is_completed ? "completed" : ""
-        }`}
+        className={`task-card ${priorityClass}`}
         key={task.id}
         onClick={() => navigate(`/task-details/${task.id}`)}
       >
@@ -85,7 +109,9 @@ function Today() {
                 : "No due time"}
             </span>
 
-            <span className={`task-tag ${priorityClass}`}>{task.priority}</span>
+            <span className={`task-tag ${priorityClass}`}>
+              {isOverdue(task) ? "Overdue" : task.priority}
+            </span>
           </div>
         </div>
 
@@ -120,8 +146,8 @@ function Today() {
         </section>
 
         <section className="progress-card">
-          <p>DAILY GOAL</p>
-          <h2>{activeTasks.length} Active Tasks</h2>
+          <p>DAILY FOCUS</p>
+          <h2>{todayTasks.length} Tasks Today</h2>
 
           <div className="progress-bar">
             <span></span>
@@ -130,10 +156,17 @@ function Today() {
 
         <section className="task-summary-card">
           <div className="circle-progress">
-            {completedTasks.length}/{tasks.length}
+            {completedTodayTasks.length}/
+            {todayTasks.length + completedTodayTasks.length}
           </div>
-          <p>Tasks Completed</p>
+          <p>Completed Today</p>
         </section>
+
+        {todayTasks.length === 0 && (
+          <section className="empty-tasks-card">
+            <p>No tasks for today. Enjoy your calm day ✨</p>
+          </section>
+        )}
 
         {highTasks.length > 0 && (
           <section className="task-section">

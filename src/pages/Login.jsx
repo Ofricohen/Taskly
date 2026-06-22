@@ -7,6 +7,7 @@ function Login() {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [keepLoggedIn, setKeepLoggedIn] = useState(true);
   const [message, setMessage] = useState("");
 
   const handleLogin = async () => {
@@ -26,6 +27,11 @@ function Login() {
       setMessage(error.message);
       return;
     }
+
+    localStorage.setItem(
+      "taskly-keep-logged-in",
+      keepLoggedIn ? "true" : "false",
+    );
 
     navigate("/today");
   };
@@ -88,7 +94,11 @@ function Login() {
           </div>
 
           <label className="keep-row">
-            <input type="checkbox" />
+            <input
+              type="checkbox"
+              checked={keepLoggedIn}
+              onChange={(event) => setKeepLoggedIn(event.target.checked)}
+            />
             <span>Keep me logged in</span>
           </label>
 

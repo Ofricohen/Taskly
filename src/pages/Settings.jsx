@@ -1,6 +1,8 @@
+import { useEffect, useState } from "react";
 import {
   FiBell,
   FiMoon,
+  FiSun,
   FiShield,
   FiHelpCircle,
   FiChevronRight,
@@ -9,6 +11,23 @@ import Footer from "../components/Footer";
 import UserAvatar from "../components/UserAvatar";
 
 function Settings() {
+  const [theme, setTheme] = useState("light");
+
+  useEffect(() => {
+    const savedTheme = localStorage.getItem("taskly-theme") || "light";
+
+    setTheme(savedTheme);
+    document.body.classList.toggle("dark-mode", savedTheme === "dark");
+  }, []);
+
+  const handleToggleTheme = () => {
+    const newTheme = theme === "light" ? "dark" : "light";
+
+    setTheme(newTheme);
+    localStorage.setItem("taskly-theme", newTheme);
+    document.body.classList.toggle("dark-mode", newTheme === "dark");
+  };
+
   return (
     <main className="settings-page">
       <section className="settings-shell">
@@ -37,14 +56,18 @@ function Settings() {
           <p>Manage alerts and sounds</p>
         </section>
 
-        <section className="settings-card">
+        <button
+          className="settings-card theme-card-button"
+          type="button"
+          onClick={handleToggleTheme}
+        >
           <div className="settings-icon blue">
-            <FiMoon size={22} />
+            {theme === "dark" ? <FiSun size={22} /> : <FiMoon size={22} />}
           </div>
 
           <h3>Theme</h3>
-          <p>Current: Light Mode</p>
-        </section>
+          <p>Current: {theme === "dark" ? "Dark Mode" : "Light Mode"}</p>
+        </button>
 
         <section className="settings-list">
           <button className="settings-row" type="button">
