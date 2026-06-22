@@ -2322,3 +2322,61 @@ body.dark-mode {
   color: var(--text-muted);
   background: var(--surface-container);
 }
+.subtask-input-row {
+  display: flex;
+  gap: 8px;
+  margin: 14px 0;
+}
+
+.subtask-input-row input {
+  flex: 1;
+  border: 1px solid var(--outline);
+  border-radius: 12px;
+  padding: 10px 12px;
+  background: var(--surface);
+  color: var(--text);
+  font-size: 14px;
+}
+
+.subtask-input-row button {
+  border: none;
+  border-radius: 12px;
+  padding: 10px 14px;
+  background: var(--primary-gradient);
+  color: var(--white);
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.subtask-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  background: var(--surface);
+  border: 1px solid var(--outline);
+  border-radius: 12px;
+  padding: 10px 12px;
+  margin-bottom: 8px;
+}
+
+.subtask-item label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text);
+  font-size: 14px;
+}
+
+.subtask-item.completed span {
+  text-decoration: line-through;
+  color: var(--text-muted);
+}
+
+.subtask-delete-btn {
+  border: none;
+  background: transparent;
+  color: var(--error);
+  font-size: 20px;
+  cursor: pointer;
+}

@@ -17,10 +17,13 @@ function TaskDetails() {
   const { id } = useParams();
 
   const [task, setTask] = useState(null);
+  const [subTasks, setSubTasks] = useState([]);
+  const [newSubTask, setNewSubTask] = useState("");
   const [message, setMessage] = useState("");
 
   useEffect(() => {
     fetchTask();
+    fetchSubTasks();
   }, [id]);
 
   const fetchTask = async () => {
@@ -38,6 +41,81 @@ function TaskDetails() {
     }
 
     setTask(data);
+  };
+
+  const fetchSubTasks = async () => {
+    const { data, error } = await supabase
+      .from("sub_tasks")
+      .select("*")
+      .eq("task_id", id)
+      .order("created_at", { ascending: true });
+
+    if (error) {
+      setMessage(error.message);
+      return;
+    }
+
+    setSubTasks(data || []);
+  };
+
+  const handleAddSubTask = async () => {
+    if (!newSubTask.trim()) {
+      setMessage("Please enter a sub-task title.");
+      return;
+    }
+
+    const { error } = await supabase.from("sub_tasks").insert({
+      task_id: id,
+      title: newSubTask,
+      is_completed: false,
+    });
+
+    if (error) {
+      setMessage(error.message);
+      return;
+    }
+
+    setNewSubTask("");
+    fetchSubTasks();
+  };
+
+  const handleToggleSubTask = async (subTask) => {
+    const { error } = await supabase
+      .from("sub_tasks")
+      .update({
+        is_completed: !subTask.is_completed,
+        updated_at: new Date().toISOString(),
+      })
+      .eq("id", subTask.id);
+
+    if (error) {
+      setMessage(error.message);
+      return;
+    }
+
+    setSubTasks((currentSubTasks) =>
+      currentSubTasks.map((item) =>
+        item.id === subTask.id
+          ? { ...item, is_completed: !item.is_completed }
+          : item,
+      ),
+    );
+  };
+
+  const handleDeleteSubTask = async (subTaskId) => {
+    const { error } = await supabase
+      .from("sub_tasks")
+      .delete()
+      .eq("id", subTaskId);
+
+    if (error) {
+      setMessage(error.message);
+      return;
+    }
+
+    setSubTasks((currentSubTasks) =>
+      currentSubTasks.filter((item) => item.id !== subTaskId),
+    );
   };
 
   const handleCompleteTask = async () => {
@@ -75,7 +153,9 @@ function TaskDetails() {
     navigate("/today");
   };
 
-  if (message) {
+  const completedSubTasks = subTasks.filter((item) => item.is_completed);
+
+  if (message && !task) {
     return (
       <main className="details-page">
         <section className="details-shell">
@@ -185,12 +265,55 @@ function TaskDetails() {
         <section className="subtasks">
           <div className="subtask-header">
             <h3>Sub-tasks</h3>
-            <span>Coming soon</span>
+            <span>
+              {completedSubTasks.length}/{subTasks.length} Done
+            </span>
           </div>
 
-          <p className="auth-message">
-            Sub-tasks will be connected in a later step.
-          </p>
+          <div className="subtask-input-row">
+            <input
+              type="text"
+              placeholder="Add a new sub-task..."
+              value={newSubTask}
+              onChange={(event) => setNewSubTask(event.target.value)}
+            />
+
+            <button type="button" onClick={handleAddSubTask}>
+              Add
+            </button>
+          </div>
+
+          {message && <p className="auth-message">{message}</p>}
+
+          {subTasks.length > 0 ? (
+            subTasks.map((subTask) => (
+              <div
+                className={`subtask-item ${
+                  subTask.is_completed ? "completed" : ""
+                }`}
+                key={subTask.id}
+              >
+                <label>
+                  <input
+                    type="checkbox"
+                    checked={subTask.is_completed}
+                    onChange={() => handleToggleSubTask(subTask)}
+                  />
+                  <span>{subTask.title}</span>
+                </label>
+
+                <button
+                  type="button"
+                  className="subtask-delete-btn"
+                  onClick={() => handleDeleteSubTask(subTask.id)}
+                >
+                  ×
+                </button>
+              </div>
+            ))
+          ) : (
+            <p className="auth-message">No sub-tasks yet.</p>
+          )}
         </section>
 
         <section className="attachments">
