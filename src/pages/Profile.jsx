@@ -1,8 +1,19 @@
 import { useNavigate } from "react-router-dom";
 import Footer from "../components/Footer";
+import { supabase } from "../lib/supabase";
 
 function Profile() {
   const navigate = useNavigate();
+  const handleLogout = async () => {
+    const { error } = await supabase.auth.signOut();
+
+    if (error) {
+      console.error(error);
+      return;
+    }
+
+    navigate("/login");
+  };
 
   return (
     <main className="profile-page">
@@ -65,11 +76,7 @@ function Profile() {
             ⚙ Preferences <span>›</span>
           </button>
 
-          <button
-            className="logout-btn"
-            type="button"
-            onClick={() => navigate("/login")}
-          >
+          <button className="logout-btn" type="button" onClick={handleLogout}>
             ↪ Logout
           </button>
         </section>

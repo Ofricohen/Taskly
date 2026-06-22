@@ -1,5 +1,6 @@
 import "./App.css";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 import Login from "./pages/Login";
 import Today from "./pages/Today";
@@ -21,17 +22,59 @@ function App() {
         <Route path="/" element={<Navigate to="/login" />} />
 
         <Route path="/login" element={<Login />} />
-        <Route path="/today" element={<Today />} />
-        <Route path="/task-details/:id" element={<TaskDetails />} />
-        <Route path="/task-details" element={<TaskDetails />} />
-        <Route path="/edit-task/:id" element={<EditTask />} />
+        <Route
+          path="/today"
+          element={
+            <ProtectedRoute>
+              <Today />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/task-details/:id"
+          element={
+            <ProtectedRoute>
+              <TaskDetails />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/edit-task/:id"
+          element={
+            <ProtectedRoute>
+              <EditTask />
+            </ProtectedRoute>
+          }
+        />
         <Route path="/register" element={<Register />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/settings" element={<Settings />} />
+        <Route
+          path="/profile"
+          element={
+            <ProtectedRoute>
+              <Profile />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/settings"
+          element={
+            <ProtectedRoute>
+              <Settings />
+            </ProtectedRoute>
+          }
+        />
         <Route path="/empty-state" element={<EmptyState />} />
         <Route path="/loading" element={<LoadingScreen />} />
         <Route path="/error" element={<ErrorScreen />} />
+        <Route
+          path="/add-task"
+          element={
+            <ProtectedRoute>
+              <AddTask />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
     </BrowserRouter>
   );
