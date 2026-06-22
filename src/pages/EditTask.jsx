@@ -1,4 +1,5 @@
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import {
   FiArrowLeft,
   FiCalendar,
@@ -7,9 +8,76 @@ import {
   FiShoppingCart,
   FiImage,
 } from "react-icons/fi";
+import { supabase } from "../lib/supabase";
 
 function EditTask() {
   const navigate = useNavigate();
+  const { id } = useParams();
+
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [dueDate, setDueDate] = useState("");
+  const [priority, setPriority] = useState("Med");
+  const [message, setMessage] = useState("");
+
+  useEffect(() => {
+    fetchTask();
+  }, [id]);
+
+  const fetchTask = async () => {
+    const { data, error } = await supabase
+      .from("tasks")
+      .select("*")
+      .eq("id", id)
+      .single();
+
+    if (error) {
+      setMessage(error.message);
+      return;
+    }
+
+    setTitle(data.title || "");
+    setDescription(data.description || "");
+    setPriority(data.priority || "Med");
+
+    if (data.due_date) {
+      const localDate = new Date(data.due_date);
+      const formattedDate = new Date(
+        localDate.getTime() - localDate.getTimezoneOffset() * 60000,
+      )
+        .toISOString()
+        .slice(0, 16);
+
+      setDueDate(formattedDate);
+    }
+  };
+
+  const handleSaveChanges = async () => {
+    setMessage("");
+
+    if (!title) {
+      setMessage("Please enter a task title.");
+      return;
+    }
+
+    const { error } = await supabase
+      .from("tasks")
+      .update({
+        title,
+        description,
+        due_date: dueDate || null,
+        priority,
+        updated_at: new Date().toISOString(),
+      })
+      .eq("id", id);
+
+    if (error) {
+      setMessage(error.message);
+      return;
+    }
+
+    navigate(`/task-details/${id}`);
+  };
 
   return (
     <main className="edit-task-page">
@@ -18,7 +86,7 @@ function EditTask() {
           <button
             className="back-button"
             type="button"
-            onClick={() => navigate("/task-details")}
+            onClick={() => navigate(`/task-details/${id}`)}
           >
             <FiArrowLeft size={20} />
           </button>
@@ -30,24 +98,40 @@ function EditTask() {
 
         <form className="edit-task-form">
           <label>What needs to be done?</label>
-          <input type="text" defaultValue="Design System Documentation" />
+          <input
+            type="text"
+            value={title}
+            onChange={(event) => setTitle(event.target.value)}
+          />
 
           <label>Description</label>
-          <textarea defaultValue="Finalize all documentation for the mobile application project including the typography scale, color palette mapping, and responsive grid behaviors for the handoff session next week." />
+          <textarea
+            value={description}
+            onChange={(event) => setDescription(event.target.value)}
+          />
 
           <label>Due Date</label>
           <div className="date-field">
-            <input type="text" defaultValue="06/08/2024" />
+            <input
+              type="datetime-local"
+              value={dueDate}
+              onChange={(event) => setDueDate(event.target.value)}
+            />
             <FiCalendar size={20} />
           </div>
 
           <label>Priority</label>
           <div className="edit-priority-row">
-            <button type="button">Low</button>
-            <button type="button">Med</button>
-            <button type="button" className="active">
-              High
-            </button>
+            {["Low", "Med", "High"].map((item) => (
+              <button
+                key={item}
+                type="button"
+                className={priority === item ? "active" : ""}
+                onClick={() => setPriority(item)}
+              >
+                {item}
+              </button>
+            ))}
           </div>
 
           <label>Category</label>
@@ -73,10 +157,12 @@ function EditTask() {
             <span>Reference Material</span>
           </div>
 
+          {message && <p className="auth-message">{message}</p>}
+
           <button
             className="save-changes-btn"
             type="button"
-            onClick={() => navigate("/task-details")}
+            onClick={handleSaveChanges}
           >
             Save Changes
           </button>
@@ -84,7 +170,7 @@ function EditTask() {
           <button
             className="cancel-edit-btn"
             type="button"
-            onClick={() => navigate("/task-details")}
+            onClick={() => navigate(`/task-details/${id}`)}
           >
             Cancel
           </button>

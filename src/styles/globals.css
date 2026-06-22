@@ -17,12 +17,17 @@
   --white: #ffffff;
 
   --error: #ba1a1a;
+  --error-container: #ffdad6;
   --success: #34d399;
 
-  --priority-high: #c81a42;
-  --priority-high-bg: #ffdadb;
-  --priority-medium: #2170e4;
-  --priority-medium-bg: #d8e2ff;
+  --priority-high: #ef4444;
+  --priority-high-bg: #fee2e2;
+
+  --priority-medium: #f97316;
+  --priority-medium-bg: #ffedd5;
+
+  --priority-low: #eab308;
+  --priority-low-bg: #fef9c3;
 
   --soft-purple-bg: #e8def8;
   --progress-track: rgba(255, 255, 255, 0.28);
@@ -45,10 +50,14 @@
   --shadow-hover: 0 8px 24px var(--purple-glow-sm);
   --shadow-footer: 0 10px 30px rgba(99, 14, 212, 0.16);
   --shadow-fab: 0 8px 20px var(--purple-glow-lg);
+  --shadow-button: 0 8px 18px var(--purple-glow-md);
+  --shadow-logo: 0 8px 20px var(--purple-glow-lg);
 
   --radius-sm: 4px;
   --radius-md: 12px;
   --radius-lg: 16px;
+  --radius-xl: 18px;
+  --radius-pill: 999px;
 
   --space-xs: 4px;
   --space-sm: 8px;
@@ -81,15 +90,11 @@
   --font-label-md-size: 12px;
   --font-label-md-weight: 500;
   --font-label-md-line: 16px;
-  --error-container: #ffdad6;
-  --shadow-button: 0 8px 18px var(--purple-glow-md);
-  --shadow-logo: 0 8px 20px var(--purple-glow-lg);
+
   --settings-purple-bg: #f3e8ff;
   --settings-blue-bg: #dbeafe;
   --upgrade-button-bg: rgba(255, 255, 255, 0.35);
   --spinner-track: #d9c8ff;
-  --radius-xl: 18px;
-  --radius-pill: 999px;
 }
 
 * {

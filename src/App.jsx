@@ -22,9 +22,9 @@ function App() {
 
         <Route path="/login" element={<Login />} />
         <Route path="/today" element={<Today />} />
-        <Route path="/add-task" element={<AddTask />} />
+        <Route path="/task-details/:id" element={<TaskDetails />} />
         <Route path="/task-details" element={<TaskDetails />} />
-        <Route path="/edit-task" element={<EditTask />} />
+        <Route path="/edit-task/:id" element={<EditTask />} />
         <Route path="/register" element={<Register />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/profile" element={<Profile />} />

@@ -882,6 +882,10 @@
   background: var(--priority-medium);
 }
 
+.section-title.low span {
+  background: var(--priority-low);
+}
+
 .section-title h3 {
   font-size: 16px;
   font-weight: 700;
@@ -893,6 +897,9 @@
 
 .task-card.medium .task-checkbox {
   accent-color: var(--priority-medium);
+}
+.task-card.low .task-checkbox {
+  accent-color: var(--priority-low);
 }
 
 .task-meta {
@@ -918,6 +925,9 @@
 .task-tag.medium {
   background: var(--priority-medium-bg);
 }
+.task-tag.low {
+  background: var(--priority-low-bg);
+}
 
 .task-card.high {
   border-color: var(--priority-high-bg);
@@ -925,6 +935,9 @@
 
 .task-card.medium {
   border-color: var(--priority-medium-bg);
+}
+.task-card.low {
+  border-color: var(--priority-low-bg);
 }
 
 .register-shell {
@@ -1948,7 +1961,6 @@
   width: 100%;
   max-width: 390px;
   min-height: 720px;
-  padding-top: 48px;
   background:
     radial-gradient(
       circle at top right,
@@ -2160,4 +2172,18 @@
   .error-page {
     padding: 12px;
   }
+}
+.auth-message {
+  color: var(--text-muted);
+  font-size: 13px;
+  line-height: 18px;
+  margin-bottom: 14px;
+  text-align: center;
+}
+.task-card.completed {
+  opacity: 0.65;
+}
+
+.task-card.completed h4 {
+  text-decoration: line-through;
 }

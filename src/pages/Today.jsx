@@ -1,71 +1,103 @@
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Footer from "../components/Footer";
+import { supabase } from "../lib/supabase";
 import { FiBell, FiClock, FiMoreVertical, FiPlus } from "react-icons/fi";
-
-const tasks = [
-  {
-    id: 1,
-    title: "Finalize Marketing Deck",
-    time: "9:00 AM",
-    category: "Work",
-    priority: "high",
-  },
-  {
-    id: 2,
-    title: "Weekly Sync Meeting",
-    time: "11:30 AM",
-    category: "Team",
-    priority: "high",
-  },
-  {
-    id: 3,
-    title: "Gym Session",
-    time: "5:00 PM",
-    category: "Health",
-    priority: "medium",
-  },
-];
 
 function Today() {
   const navigate = useNavigate();
 
-  const highTasks = tasks.filter((task) => task.priority === "high");
-  const mediumTasks = tasks.filter((task) => task.priority === "medium");
+  const [tasks, setTasks] = useState([]);
 
-  const renderTask = (task) => (
-    <article
-      className={`task-card ${task.priority}`}
-      key={task.id}
-      onClick={() => navigate("/task-details")}
-    >
-      <input
-        type="checkbox"
-        className={`task-checkbox ${task.priority}`}
-        onClick={(event) => event.stopPropagation()}
-      />
+  useEffect(() => {
+    fetchTasks();
+  }, []);
 
-      <div className="task-content">
-        <h4>{task.title}</h4>
+  const fetchTasks = async () => {
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
 
-        <div className="task-meta">
-          <span className="task-time">
-            <FiClock size={12} />
-            {task.time}
-          </span>
+    if (!user) return;
 
-          <span className={`task-tag ${task.priority}`}>{task.category}</span>
-        </div>
-      </div>
+    const { data, error } = await supabase
+      .from("tasks")
+      .select("*")
+      .eq("user_id", user.id)
+      .order("created_at", { ascending: false });
 
-      <button
-        className="more-button"
-        type="button"
-        onClick={(event) => event.stopPropagation()}
-      >
-        <FiMoreVertical size={18} />
-      </button>
-    </article>
+    if (error) {
+      console.error(error);
+      return;
+    }
+
+    setTasks(data || []);
+  };
+
+  const completedTasks = tasks.filter((task) => task.is_completed);
+  const activeTasks = tasks.filter((task) => !task.is_completed);
+
+  const highTasks = tasks.filter(
+    (task) => task.priority?.toLowerCase() === "high",
   );
+
+  const mediumTasks = tasks.filter(
+    (task) =>
+      task.priority?.toLowerCase() === "med" ||
+      task.priority?.toLowerCase() === "medium",
+  );
+
+  const lowTasks = tasks.filter(
+    (task) => task.priority?.toLowerCase() === "low",
+  );
+
+  const renderTask = (task) => {
+    const priorityClass = task.priority?.toLowerCase();
+
+    return (
+      <article
+        className={`task-card ${priorityClass} ${
+          task.is_completed ? "completed" : ""
+        }`}
+        key={task.id}
+        onClick={() => navigate(`/task-details/${task.id}`)}
+      >
+        <input
+          type="checkbox"
+          checked={task.is_completed}
+          readOnly
+          className={`task-checkbox ${priorityClass}`}
+          onClick={(event) => event.stopPropagation()}
+        />
+
+        <div className="task-content">
+          <h4>{task.title}</h4>
+
+          <div className="task-meta">
+            <span className="task-time">
+              <FiClock size={12} />
+              {task.due_date
+                ? new Date(task.due_date).toLocaleTimeString([], {
+                    hour: "2-digit",
+                    minute: "2-digit",
+                  })
+                : "No due time"}
+            </span>
+
+            <span className={`task-tag ${priorityClass}`}>{task.priority}</span>
+          </div>
+        </div>
+
+        <button
+          className="more-button"
+          type="button"
+          onClick={(event) => event.stopPropagation()}
+        >
+          <FiMoreVertical size={18} />
+        </button>
+      </article>
+    );
+  };
 
   return (
     <main className="today-page">
@@ -83,12 +115,12 @@ function Today() {
 
         <section className="today-title">
           <h1>Good morning, Ofri!</h1>
-          <p>Wednesday, June 17</p>
+          <p>{new Date().toLocaleDateString()}</p>
         </section>
 
         <section className="progress-card">
           <p>DAILY GOAL</p>
-          <h2>75% Complete</h2>
+          <h2>{activeTasks.length} Active Tasks</h2>
 
           <div className="progress-bar">
             <span></span>
@@ -96,27 +128,44 @@ function Today() {
         </section>
 
         <section className="task-summary-card">
-          <div className="circle-progress">6/8</div>
-          <p>Tasks Finished</p>
-        </section>
-
-        <section className="task-section">
-          <div className="section-title high">
-            <span></span>
-            <h3>High Priority</h3>
+          <div className="circle-progress">
+            {completedTasks.length}/{tasks.length}
           </div>
-
-          {highTasks.map(renderTask)}
+          <p>Tasks Completed</p>
         </section>
 
-        <section className="task-section">
-          <div className="section-title medium">
-            <span></span>
-            <h3>Medium Priority</h3>
-          </div>
+        {highTasks.length > 0 && (
+          <section className="task-section">
+            <div className="section-title high">
+              <span></span>
+              <h3>High Priority</h3>
+            </div>
 
-          {mediumTasks.map(renderTask)}
-        </section>
+            {highTasks.map(renderTask)}
+          </section>
+        )}
+
+        {mediumTasks.length > 0 && (
+          <section className="task-section">
+            <div className="section-title medium">
+              <span></span>
+              <h3>Medium Priority</h3>
+            </div>
+
+            {mediumTasks.map(renderTask)}
+          </section>
+        )}
+
+        {lowTasks.length > 0 && (
+          <section className="task-section">
+            <div className="section-title low">
+              <span></span>
+              <h3>Low Priority</h3>
+            </div>
+
+            {lowTasks.map(renderTask)}
+          </section>
+        )}
 
         <button
           className="floating-add"

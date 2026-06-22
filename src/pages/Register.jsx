@@ -1,7 +1,45 @@
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { supabase } from "../lib/supabase";
 
 function Register() {
   const navigate = useNavigate();
+
+  const [fullName, setFullName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [message, setMessage] = useState("");
+
+  const handleRegister = async () => {
+    setMessage("");
+
+    if (!fullName || !email || !password || !confirmPassword) {
+      setMessage("Please fill in all fields.");
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      setMessage("Passwords do not match.");
+      return;
+    }
+
+    const { error } = await supabase.auth.signUp({
+      email,
+      password,
+      options: {
+        data: {
+          full_name: fullName,
+        },
+      },
+    });
+    if (error) {
+      setMessage(error.message);
+      return;
+    }
+
+    setMessage("Account created successfully. Please check your email.");
+  };
 
   return (
     <main className="login-page">
@@ -25,6 +63,13 @@ function Register() {
             <label htmlFor="name">Name</label>
             <div className="input-wrapper">
               <span className="input-icon">♙</span>
+              <input
+                id="name"
+                type="text"
+                placeholder="Your full name"
+                value={fullName}
+                onChange={(event) => setFullName(event.target.value)}
+              />
             </div>
           </div>
 
@@ -36,6 +81,8 @@ function Register() {
                 id="register-email"
                 type="email"
                 placeholder="name@example.com"
+                value={email}
+                onChange={(event) => setEmail(event.target.value)}
               />
             </div>
           </div>
@@ -48,6 +95,8 @@ function Register() {
                 id="register-password"
                 type="password"
                 placeholder="••••••••"
+                value={password}
+                onChange={(event) => setPassword(event.target.value)}
               />
             </div>
           </div>
@@ -60,14 +109,18 @@ function Register() {
                 id="confirm-password"
                 type="password"
                 placeholder="••••••••"
+                value={confirmPassword}
+                onChange={(event) => setConfirmPassword(event.target.value)}
               />
             </div>
           </div>
 
+          {message && <p className="auth-message">{message}</p>}
+
           <button
             className="primary-button register-button"
             type="button"
-            onClick={() => navigate("/today")}
+            onClick={handleRegister}
           >
             Create Account <span>→</span>
           </button>

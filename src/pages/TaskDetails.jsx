@@ -1,4 +1,5 @@
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import {
   FiArrowLeft,
   FiEdit2,
@@ -9,9 +10,98 @@ import {
   FiShare2,
   FiCalendar,
 } from "react-icons/fi";
+import { supabase } from "../lib/supabase";
 
 function TaskDetails() {
   const navigate = useNavigate();
+  const { id } = useParams();
+
+  const [task, setTask] = useState(null);
+  const [message, setMessage] = useState("");
+
+  useEffect(() => {
+    fetchTask();
+  }, [id]);
+
+  const fetchTask = async () => {
+    setMessage("");
+
+    const { data, error } = await supabase
+      .from("tasks")
+      .select("*")
+      .eq("id", id)
+      .single();
+
+    if (error) {
+      setMessage(error.message);
+      return;
+    }
+
+    setTask(data);
+  };
+
+  const handleCompleteTask = async () => {
+    const { error } = await supabase
+      .from("tasks")
+      .update({
+        is_completed: true,
+        status: "completed",
+        updated_at: new Date().toISOString(),
+      })
+      .eq("id", id);
+
+    if (error) {
+      setMessage(error.message);
+      return;
+    }
+
+    navigate("/today");
+  };
+
+  const handleDeleteTask = async () => {
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this task?",
+    );
+
+    if (!confirmDelete) return;
+
+    const { error } = await supabase.from("tasks").delete().eq("id", id);
+
+    if (error) {
+      setMessage(error.message);
+      return;
+    }
+
+    navigate("/today");
+  };
+
+  if (message) {
+    return (
+      <main className="details-page">
+        <section className="details-shell">
+          <p className="auth-message">{message}</p>
+
+          <button
+            className="primary-button"
+            type="button"
+            onClick={() => navigate("/today")}
+          >
+            Back to Today
+          </button>
+        </section>
+      </main>
+    );
+  }
+
+  if (!task) {
+    return (
+      <main className="details-page">
+        <section className="details-shell">
+          <p className="auth-message">Loading task...</p>
+        </section>
+      </main>
+    );
+  }
 
   return (
     <main className="details-page">
@@ -26,21 +116,25 @@ function TaskDetails() {
           <div className="details-actions">
             <button
               className="icon-button"
-              onClick={() => navigate("/edit-task")}
+              onClick={() => navigate(`/edit-task/${id}`)}
             >
               <FiEdit2 size={16} />
             </button>
 
-            <button className="icon-button delete">
+            <button
+              className="icon-button delete"
+              type="button"
+              onClick={handleDeleteTask}
+            >
               <FiTrash2 size={16} />
             </button>
           </div>
         </header>
 
-        <span className="project-tag">University Project</span>
+        <span className="project-tag">{task.priority} Priority</span>
 
         <div className="title-row">
-          <h1>Design System Documentation for Mobile App</h1>
+          <h1>{task.title}</h1>
 
           <div className="status-circle">
             <FiCheckCircle size={28} />
@@ -53,9 +147,14 @@ function TaskDetails() {
             Deadline
           </p>
 
-          <h2>02:13:36</h2>
-
-          <p>Due Tomorrow, 10:00 AM</p>
+          <p>
+            {task.due_date
+              ? new Date(task.due_date).toLocaleString("en-US", {
+                  dateStyle: "medium",
+                  timeStyle: "short",
+                })
+              : "No deadline"}
+          </p>
         </section>
 
         <section className="details-card">
@@ -66,7 +165,7 @@ function TaskDetails() {
               <span></span>
             </div>
 
-            <strong>High</strong>
+            <strong>{task.priority}</strong>
           </div>
         </section>
 
@@ -74,42 +173,19 @@ function TaskDetails() {
           <h3>Description</h3>
 
           <div className="description-box">
-            <p>
-              Finalize all documentation for the mobile application project.
-              This includes user personas, information architecture, wireframes,
-              and the high fidelity design tokens. Ensure all accessibility
-              standards are clearly documented.
-            </p>
+            <p>{task.description || "No description added."}</p>
           </div>
         </section>
 
         <section className="subtasks">
           <div className="subtask-header">
             <h3>Sub-tasks</h3>
-            <span>2/4 Done</span>
+            <span>Coming soon</span>
           </div>
 
-          <label className="subtask-item">
-            <input type="checkbox" defaultChecked />
-            Define Typography Scale
-          </label>
-
-          <label className="subtask-item">
-            <input type="checkbox" defaultChecked />
-            Export Icon Set
-          </label>
-
-          <label className="subtask-item">
-            <input type="checkbox" />
-            Write Accessibility Audit
-          </label>
-
-          <label className="subtask-item">
-            <input type="checkbox" />
-            Review with Stakeholders
-          </label>
-
-          <button className="add-subtask-btn">+ Add Sub-task</button>
+          <p className="auth-message">
+            Sub-tasks will be connected in a later step.
+          </p>
         </section>
 
         <section className="attachments">
@@ -121,8 +197,7 @@ function TaskDetails() {
             </div>
 
             <div className="attachment-column">
-              <button className="attachment-file">Brief.pdf</button>
-              <button className="attachment-file">Research</button>
+              <button className="attachment-file">No files yet</button>
             </div>
           </div>
         </section>
@@ -141,7 +216,7 @@ function TaskDetails() {
           <button
             className="complete-task-btn"
             type="button"
-            onClick={() => navigate("/today")}
+            onClick={handleCompleteTask}
           >
             <FiCheckCircle size={18} />
             Complete Task

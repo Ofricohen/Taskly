@@ -1,7 +1,34 @@
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { supabase } from "../lib/supabase";
 
 function Login() {
   const navigate = useNavigate();
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [message, setMessage] = useState("");
+
+  const handleLogin = async () => {
+    setMessage("");
+
+    if (!email || !password) {
+      setMessage("Please enter your email and password.");
+      return;
+    }
+
+    const { error } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    });
+
+    if (error) {
+      setMessage(error.message);
+      return;
+    }
+
+    navigate("/today");
+  };
 
   return (
     <main className="login-page">
@@ -24,7 +51,13 @@ function Login() {
             <label htmlFor="email">Email Address</label>
             <div className="input-wrapper">
               <span className="input-icon">✉</span>
-              <input id="email" type="email" placeholder="name@example.com" />
+              <input
+                id="email"
+                type="email"
+                placeholder="name@example.com"
+                value={email}
+                onChange={(event) => setEmail(event.target.value)}
+              />
             </div>
           </div>
 
@@ -43,7 +76,13 @@ function Login() {
 
             <div className="input-wrapper">
               <span className="input-icon">🔒</span>
-              <input id="password" type="password" placeholder="••••••••" />
+              <input
+                id="password"
+                type="password"
+                placeholder="••••••••"
+                value={password}
+                onChange={(event) => setPassword(event.target.value)}
+              />
               <span className="input-icon">👁</span>
             </div>
           </div>
@@ -53,10 +92,12 @@ function Login() {
             <span>Keep me logged in</span>
           </label>
 
+          {message && <p className="auth-message">{message}</p>}
+
           <button
             className="primary-button"
             type="button"
-            onClick={() => navigate("/today")}
+            onClick={handleLogin}
           >
             Login <span>→</span>
           </button>
