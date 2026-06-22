@@ -6,6 +6,7 @@ import {
   FiChevronRight,
 } from "react-icons/fi";
 import Footer from "../components/Footer";
+import UserAvatar from "../components/UserAvatar";
 
 function Settings() {
   return (
@@ -13,7 +14,7 @@ function Settings() {
       <section className="settings-shell">
         <header className="settings-header">
           <div className="brand-row">
-            <div className="avatar">👩🏻</div>
+            <UserAvatar />
             <p className="today-brand">Taskly</p>
           </div>
 

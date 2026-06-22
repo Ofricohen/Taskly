@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Footer from "../components/Footer";
 import { supabase } from "../lib/supabase";
 import { FiBell, FiClock, FiMoreVertical, FiPlus } from "react-icons/fi";
+import UserAvatar from "../components/UserAvatar";
 
 function Today() {
   const navigate = useNavigate();
@@ -104,7 +105,7 @@ function Today() {
       <section className="today-shell">
         <header className="today-header">
           <div className="brand-row">
-            <div className="avatar">👩🏻</div>
+            <UserAvatar />
             <p className="today-brand">Taskly</p>
           </div>
 

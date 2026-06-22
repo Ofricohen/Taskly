@@ -27,9 +27,9 @@ function Footer() {
 
       <button
         className={`footer-item ${
-          location.pathname === "/task-details" ? "active" : ""
+          location.pathname === "/tasks" ? "active" : ""
         }`}
-        onClick={() => navigate("/task-details")}
+        onClick={() => navigate("/tasks")}
       >
         <FiCheckSquare size={20} />
         <small>Tasks</small>

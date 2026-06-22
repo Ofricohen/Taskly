@@ -14,6 +14,7 @@ import Settings from "./pages/Settings";
 import EmptyState from "./pages/EmptyState";
 import LoadingScreen from "./pages/LoadingScreen";
 import ErrorScreen from "./pages/ErrorScreen";
+import Tasks from "./pages/Tasks";
 
 function App() {
   return (
@@ -72,6 +73,14 @@ function App() {
           element={
             <ProtectedRoute>
               <AddTask />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/tasks"
+          element={
+            <ProtectedRoute>
+              <Tasks />
             </ProtectedRoute>
           }
         />

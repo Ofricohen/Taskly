@@ -107,7 +107,11 @@ function TaskDetails() {
     <main className="details-page">
       <section className="details-shell">
         <header className="details-header">
-          <button className="back-button" onClick={() => navigate("/today")}>
+          <button
+            className="back-button"
+            type="button"
+            onClick={() => navigate("/today")}
+          >
             <FiArrowLeft size={20} />
           </button>
 
@@ -116,6 +120,7 @@ function TaskDetails() {
           <div className="details-actions">
             <button
               className="icon-button"
+              type="button"
               onClick={() => navigate(`/edit-task/${id}`)}
             >
               <FiEdit2 size={16} />

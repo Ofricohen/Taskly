@@ -42,6 +42,7 @@ function EditTask() {
 
     if (data.due_date) {
       const localDate = new Date(data.due_date);
+
       const formattedDate = new Date(
         localDate.getTime() - localDate.getTimezoneOffset() * 60000,
       )
@@ -55,7 +56,7 @@ function EditTask() {
   const handleSaveChanges = async () => {
     setMessage("");
 
-    if (!title) {
+    if (!title.trim()) {
       setMessage("Please enter a task title.");
       return;
     }
@@ -98,6 +99,7 @@ function EditTask() {
 
         <form className="edit-task-form">
           <label>What needs to be done?</label>
+
           <input
             type="text"
             value={title}
@@ -105,22 +107,26 @@ function EditTask() {
           />
 
           <label>Description</label>
+
           <textarea
             value={description}
             onChange={(event) => setDescription(event.target.value)}
           />
 
           <label>Due Date</label>
+
           <div className="date-field">
             <input
               type="datetime-local"
               value={dueDate}
               onChange={(event) => setDueDate(event.target.value)}
             />
+
             <FiCalendar size={20} />
           </div>
 
           <label>Priority</label>
+
           <div className="edit-priority-row">
             {["Low", "Med", "High"].map((item) => (
               <button
@@ -135,6 +141,7 @@ function EditTask() {
           </div>
 
           <label>Category</label>
+
           <div className="edit-category-row">
             <button type="button" className="active">
               <FiBriefcase size={14} />
