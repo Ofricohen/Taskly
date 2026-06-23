@@ -15,14 +15,42 @@ import EmptyState from "./pages/EmptyState";
 import LoadingScreen from "./pages/LoadingScreen";
 import ErrorScreen from "./pages/ErrorScreen";
 import Tasks from "./pages/Tasks";
+import Security from "./pages/Security";
+import HelpSupport from "./pages/HelpSupport";
+import Pricing from "./pages/Pricing";
+import NotificationsSettings from "./pages/NotificationsSettings";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Navigate to="/login" />} />
-
+        <Route path="/security" element={<Security />} />
         <Route path="/login" element={<Login />} />
+        <Route
+          path="/notifications"
+          element={
+            <ProtectedRoute>
+              <NotificationsSettings />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/pricing"
+          element={
+            <ProtectedRoute>
+              <Pricing />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/help-support"
+          element={
+            <ProtectedRoute>
+              <HelpSupport />
+            </ProtectedRoute>
+          }
+        />
         <Route
           path="/today"
           element={

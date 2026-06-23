@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import {
   FiArrowLeft,
@@ -15,15 +15,19 @@ import { supabase } from "../lib/supabase";
 function TaskDetails() {
   const navigate = useNavigate();
   const { id } = useParams();
+  const fileInputRef = useRef(null);
 
   const [task, setTask] = useState(null);
   const [subTasks, setSubTasks] = useState([]);
+  const [attachments, setAttachments] = useState([]);
   const [newSubTask, setNewSubTask] = useState("");
   const [message, setMessage] = useState("");
+  const [uploadingFile, setUploadingFile] = useState(false);
 
   useEffect(() => {
     fetchTask();
     fetchSubTasks();
+    fetchAttachments();
   }, [id]);
 
   const fetchTask = async () => {
@@ -56,6 +60,21 @@ function TaskDetails() {
     }
 
     setSubTasks(data || []);
+  };
+
+  const fetchAttachments = async () => {
+    const { data, error } = await supabase
+      .from("task_attachments")
+      .select("*")
+      .eq("task_id", id)
+      .order("created_at", { ascending: false });
+
+    if (error) {
+      setMessage(error.message);
+      return;
+    }
+
+    setAttachments(data || []);
   };
 
   const handleAddSubTask = async () => {
@@ -115,6 +134,83 @@ function TaskDetails() {
 
     setSubTasks((currentSubTasks) =>
       currentSubTasks.filter((item) => item.id !== subTaskId),
+    );
+  };
+
+  const handleUploadAttachment = async (event) => {
+    const file = event.target.files[0];
+
+    if (!file || !task) return;
+
+    setMessage("");
+    setUploadingFile(true);
+
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+
+    if (!user) {
+      setMessage("You must be logged in to upload files.");
+      setUploadingFile(false);
+      return;
+    }
+
+    const safeFileName = file.name.replace(/[^a-zA-Z0-9._-]/g, "_");
+    const filePath = `${user.id}/${id}/${Date.now()}-${safeFileName}`;
+
+    const { error: uploadError } = await supabase.storage
+      .from("task-attachments")
+      .upload(filePath, file);
+
+    if (uploadError) {
+      setMessage(uploadError.message);
+      setUploadingFile(false);
+      return;
+    }
+
+    const { data: publicUrlData } = supabase.storage
+      .from("task-attachments")
+      .getPublicUrl(filePath);
+
+    const { error: insertError } = await supabase
+      .from("task_attachments")
+      .insert({
+        task_id: id,
+        file_name: file.name,
+        file_url: publicUrlData.publicUrl,
+        file_type: file.type || "file",
+      });
+
+    if (insertError) {
+      setMessage(insertError.message);
+      setUploadingFile(false);
+      return;
+    }
+
+    event.target.value = "";
+    setUploadingFile(false);
+    fetchAttachments();
+  };
+
+  const handleDeleteAttachment = async (attachment) => {
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this file?",
+    );
+
+    if (!confirmDelete) return;
+
+    const { error: deleteRowError } = await supabase
+      .from("task_attachments")
+      .delete()
+      .eq("id", attachment.id);
+
+    if (deleteRowError) {
+      setMessage(deleteRowError.message);
+      return;
+    }
+
+    setAttachments((currentAttachments) =>
+      currentAttachments.filter((item) => item.id !== attachment.id),
     );
   };
 
@@ -320,12 +416,47 @@ function TaskDetails() {
           <h3>Attachments</h3>
 
           <div className="attachment-grid">
-            <div className="attachment-preview">
+            <button
+              className="attachment-preview"
+              type="button"
+              onClick={() => fileInputRef.current.click()}
+            >
               <FiPaperclip size={28} />
-            </div>
+              <span>{uploadingFile ? "Uploading..." : "Upload file"}</span>
+            </button>
+
+            <input
+              ref={fileInputRef}
+              type="file"
+              onChange={handleUploadAttachment}
+              hidden
+            />
 
             <div className="attachment-column">
-              <button className="attachment-file">No files yet</button>
+              {attachments.length > 0 ? (
+                attachments.map((attachment) => (
+                  <div className="attachment-file-row" key={attachment.id}>
+                    <a
+                      href={attachment.file_url}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      {attachment.file_name}
+                    </a>
+
+                    <button
+                      type="button"
+                      onClick={() => handleDeleteAttachment(attachment)}
+                    >
+                      ×
+                    </button>
+                  </div>
+                ))
+              ) : (
+                <button className="attachment-file" type="button">
+                  No files yet
+                </button>
+              )}
             </div>
           </div>
         </section>

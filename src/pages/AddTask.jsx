@@ -9,12 +9,13 @@ function AddTask() {
   const [description, setDescription] = useState("");
   const [dueDate, setDueDate] = useState("");
   const [priority, setPriority] = useState("Med");
+  const [category, setCategory] = useState("Personal");
   const [message, setMessage] = useState("");
 
   const handleCreateTask = async () => {
     setMessage("");
 
-    if (!title) {
+    if (!title.trim()) {
       setMessage("Please enter a task title.");
       return;
     }
@@ -35,6 +36,7 @@ function AddTask() {
       description,
       due_date: dueDate || null,
       priority,
+      category,
       status: "active",
       is_completed: false,
     });
@@ -98,7 +100,7 @@ function AddTask() {
           </section>
 
           <section className="form-card">
-            <label> Priority </label>
+            <label>Priority</label>
 
             <div className="priority-row">
               {["Low", "Med", "High"].map((item) => (
@@ -115,14 +117,20 @@ function AddTask() {
           </section>
 
           <section className="category-section">
-            <label> Categories</label>
+            <label>Categories</label>
 
             <div className="category-row">
-              <button type="button">School</button>
-              <button type="button">Work</button>
-              <button type="button" className="active">
-                Personal
-              </button>
+              {["School", "Work", "Personal", "Health"].map((item) => (
+                <button
+                  key={item}
+                  type="button"
+                  className={category === item ? "active" : ""}
+                  onClick={() => setCategory(item)}
+                >
+                  {item}
+                </button>
+              ))}
+
               <button type="button" className="add-category">
                 +
               </button>

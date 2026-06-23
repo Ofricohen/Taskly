@@ -2,8 +2,9 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Footer from "../components/Footer";
 import { supabase } from "../lib/supabase";
-import { FiBell, FiClock, FiMoreVertical, FiPlus } from "react-icons/fi";
+import { FiClock, FiMoreVertical, FiPlus } from "react-icons/fi";
 import UserAvatar from "../components/UserAvatar";
+import NotificationsButton from "../components/NotificationsButton";
 
 function Today() {
   const navigate = useNavigate();
@@ -135,9 +136,7 @@ function Today() {
             <p className="today-brand">Taskly</p>
           </div>
 
-          <button className="icon-button" type="button">
-            <FiBell size={18} />
-          </button>
+          <NotificationsButton />
         </header>
 
         <section className="today-title">

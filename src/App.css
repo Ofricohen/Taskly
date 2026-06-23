@@ -2380,3 +2380,364 @@ body.dark-mode {
   font-size: 20px;
   cursor: pointer;
 }
+.attachment-preview {
+  border: none;
+  cursor: pointer;
+  color: var(--primary);
+  font-weight: 700;
+}
+
+.attachment-preview span {
+  display: block;
+  margin-top: 8px;
+  font-size: 12px;
+}
+
+.attachment-file-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  background: var(--surface-container);
+  border-radius: 12px;
+  padding: 10px;
+  margin-bottom: 8px;
+}
+
+.attachment-file-row a {
+  color: var(--primary);
+  font-size: 13px;
+  font-weight: 700;
+  text-decoration: none;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.attachment-file-row button {
+  border: none;
+  background: transparent;
+  color: var(--error);
+  font-size: 18px;
+  cursor: pointer;
+}
+.notifications-wrapper {
+  position: relative;
+}
+
+.notification-button {
+  position: relative;
+}
+
+.notification-badge {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  min-width: 16px;
+  height: 16px;
+  padding: 0 4px;
+  border-radius: 999px;
+  background: var(--error);
+  color: var(--white);
+  font-size: 10px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.notifications-panel {
+  position: absolute;
+  top: 42px;
+  right: 0;
+  width: 260px;
+  max-height: 320px;
+  overflow-y: auto;
+  background: var(--surface);
+  border: 1px solid var(--outline);
+  border-radius: 16px;
+  box-shadow: var(--shadow-md);
+  padding: 14px;
+  z-index: 20;
+}
+
+.notifications-panel h4 {
+  margin-bottom: 10px;
+  color: var(--text);
+}
+
+.notification-item {
+  width: 100%;
+  display: block;
+  text-align: left;
+  border: none;
+  padding: 10px;
+  border-radius: 12px;
+  background: var(--surface-container);
+  margin-bottom: 8px;
+  cursor: pointer;
+}
+
+.notification-item:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-sm);
+}
+
+.notification-item strong {
+  display: block;
+  color: var(--text);
+  font-size: 13px;
+  margin-bottom: 4px;
+}
+
+.notification-item p,
+.notification-empty {
+  color: var(--text-muted);
+  font-size: 12px;
+}
+.security-card {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: 24px;
+  padding: 24px;
+  border: 1px solid var(--outline);
+  border-radius: var(--radius-xl);
+  background: var(--surface);
+  box-shadow: var(--shadow-sm);
+}
+
+.security-card h2 {
+  color: var(--text);
+  font-size: 20px;
+}
+
+.security-card p {
+  color: var(--text-muted);
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.security-email {
+  padding: 12px;
+  border-radius: var(--radius-md);
+  background: var(--surface-container);
+  color: var(--text);
+  font-weight: 600;
+}
+
+.security-message {
+  padding: 12px;
+  border-radius: var(--radius-md);
+  background: var(--success);
+  color: var(--white);
+  font-weight: 700;
+  text-align: center;
+}
+.security-message {
+  margin-top: 16px;
+  padding: 14px;
+  border-radius: 14px;
+
+  background: #f3e8ff;
+  border: 1px solid #d8b4fe;
+
+  color: #7c3aed;
+  font-weight: 600;
+  text-align: center;
+}
+
+.faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.faq-item {
+  margin-top: 12px;
+  line-height: 1.5;
+  width: 100%;
+  border: 1px solid var(--outline);
+  border-radius: 14px;
+  background: var(--surface-container);
+  color: var(--text);
+  padding: 14px;
+  text-align: left;
+  cursor: pointer;
+}
+
+.faq-item strong {
+  display: block;
+  font-size: 14px;
+  transition: all 0.2s ease;
+}
+
+.faq-item p {
+  margin-top: 8px;
+  color: var(--text-muted);
+  font-size: 13px;
+  line-height: 19px;
+}
+.faq-question-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.faq-question-row span {
+  color: var(--primary);
+  font-size: 18px;
+  font-weight: 800;
+}
+
+.faq-item.active {
+  background: var(--surface);
+  border-color: var(--primary);
+}
+.pricing-hero {
+  margin: 20px 0;
+  text-align: center;
+}
+
+.pricing-hero h2 {
+  color: var(--text);
+  font-size: 24px;
+  margin-bottom: 8px;
+}
+
+.pricing-hero p {
+  color: var(--text-muted);
+  font-size: 14px;
+}
+
+.pricing-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.pricing-card {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 22px;
+  border-radius: 22px;
+  border: 1px solid var(--outline);
+  background: var(--surface);
+  box-shadow: var(--shadow-sm);
+}
+
+.pricing-card.featured {
+  border-color: var(--primary);
+  background: linear-gradient(180deg, #f5edff 0%, #ffffff 100%);
+}
+
+body.dark-mode .pricing-card.featured {
+  background: linear-gradient(180deg, #312e81 0%, #1f2937 100%);
+}
+
+.pricing-card h3 {
+  font-size: 22px;
+  color: var(--text);
+}
+
+.pricing-card p {
+  color: var(--text-muted);
+  font-size: 14px;
+}
+
+.pricing-price strong {
+  font-size: 34px;
+  color: var(--primary);
+}
+
+.pricing-price span {
+  color: var(--text-muted);
+  font-size: 13px;
+  margin-left: 4px;
+}
+
+.pricing-features {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.pricing-features p {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.pricing-features svg {
+  color: var(--primary);
+}
+
+.pricing-card button {
+  border: none;
+  border-radius: 14px;
+  padding: 13px;
+  background: var(--primary-gradient);
+  color: var(--white);
+  font-weight: 800;
+  cursor: pointer;
+}
+.notification-settings-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.notification-settings-list button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  border: 1px solid var(--outline);
+  border-radius: 16px;
+  background: var(--surface-container);
+  color: var(--text);
+  padding: 14px;
+  text-align: left;
+  cursor: pointer;
+}
+
+.notification-settings-list h4 {
+  margin: 0 0 4px;
+}
+
+.notification-settings-list p {
+  margin: 0;
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.toggle {
+  width: 42px;
+  height: 24px;
+  border-radius: 999px;
+  background: var(--outline);
+  position: relative;
+  flex-shrink: 0;
+}
+
+.toggle::after {
+  content: "";
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--white);
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  transition: 0.2s;
+}
+
+.toggle.active {
+  background: var(--primary);
+}
+
+.toggle.active::after {
+  left: 21px;
+}

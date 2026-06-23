@@ -9,8 +9,11 @@ import {
 } from "react-icons/fi";
 import Footer from "../components/Footer";
 import UserAvatar from "../components/UserAvatar";
+import NotificationsButton from "../components/NotificationsButton";
+import { useNavigate } from "react-router-dom";
 
 function Settings() {
+  const navigate = useNavigate();
   const [theme, setTheme] = useState("light");
 
   useEffect(() => {
@@ -37,9 +40,7 @@ function Settings() {
             <p className="today-brand">Taskly</p>
           </div>
 
-          <button className="icon-button" type="button">
-            <FiBell size={18} />
-          </button>
+          <NotificationsButton />
         </header>
 
         <section className="settings-title">
@@ -47,7 +48,10 @@ function Settings() {
           <p>Manage your account and app preferences</p>
         </section>
 
-        <section className="settings-card">
+        <section
+          className="settings-card"
+          onClick={() => navigate("/notifications")}
+        >
           <div className="settings-icon purple">
             <FiBell size={22} />
           </div>
@@ -70,24 +74,32 @@ function Settings() {
         </button>
 
         <section className="settings-list">
-          <button className="settings-row" type="button">
+          <button
+            className="settings-row"
+            type="button"
+            onClick={() => navigate("/security")}
+          >
             <div className="row-left">
               <FiShield size={20} />
               <div>
                 <h4>Account Security</h4>
-                <p>Password, 2FA, Sessions</p>
+                <p>Reset Password </p>
               </div>
             </div>
 
             <FiChevronRight />
           </button>
 
-          <button className="settings-row" type="button">
+          <button
+            className="settings-row"
+            type="button"
+            onClick={() => navigate("/help-support")}
+          >
             <div className="row-left">
               <FiHelpCircle size={20} />
               <div>
                 <h4>Help & Support</h4>
-                <p>FAQ, Contact, Documentation</p>
+                <p>Taskly Help Center</p>
               </div>
             </div>
 
@@ -95,12 +107,12 @@ function Settings() {
           </button>
         </section>
 
-        <section className="pro-card">
+        <section className="pro-card" onClick={() => navigate("/pricing")}>
           <h2>Taskly Pro</h2>
 
           <p>Unlock advanced analytics and team sync.</p>
 
-          <button type="button">Upgrade Now</button>
+          <button type="button">View Plans</button>
         </section>
 
         <section className="settings-version">

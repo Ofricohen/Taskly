@@ -6,7 +6,6 @@ import {
   FiBriefcase,
   FiUser,
   FiShoppingCart,
-  FiImage,
 } from "react-icons/fi";
 import { supabase } from "../lib/supabase";
 
@@ -18,6 +17,7 @@ function EditTask() {
   const [description, setDescription] = useState("");
   const [dueDate, setDueDate] = useState("");
   const [priority, setPriority] = useState("Med");
+  const [category, setCategory] = useState("Personal");
   const [message, setMessage] = useState("");
 
   useEffect(() => {
@@ -39,6 +39,7 @@ function EditTask() {
     setTitle(data.title || "");
     setDescription(data.description || "");
     setPriority(data.priority || "Med");
+    setCategory(data.category || "Personal");
 
     if (data.due_date) {
       const localDate = new Date(data.due_date);
@@ -68,6 +69,7 @@ function EditTask() {
         description,
         due_date: dueDate || null,
         priority,
+        category,
         updated_at: new Date().toISOString(),
       })
       .eq("id", id);
@@ -143,25 +145,30 @@ function EditTask() {
           <label>Category</label>
 
           <div className="edit-category-row">
-            <button type="button" className="active">
-              <FiBriefcase size={14} />
-              Work
-            </button>
-
-            <button type="button">
-              <FiUser size={14} />
-              Personal
-            </button>
-
-            <button type="button">
-              <FiShoppingCart size={14} />
-              Health
-            </button>
-          </div>
-
-          <div className="reference-card">
-            <FiImage size={28} />
-            <span>Reference Material</span>
+            {[
+              {
+                name: "Work",
+                icon: <FiBriefcase size={14} />,
+              },
+              {
+                name: "Personal",
+                icon: <FiUser size={14} />,
+              },
+              {
+                name: "Health",
+                icon: <FiShoppingCart size={14} />,
+              },
+            ].map((item) => (
+              <button
+                key={item.name}
+                type="button"
+                className={category === item.name ? "active" : ""}
+                onClick={() => setCategory(item.name)}
+              >
+                {item.icon}
+                {item.name}
+              </button>
+            ))}
           </div>
 
           {message && <p className="auth-message">{message}</p>}
