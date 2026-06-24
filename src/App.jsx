@@ -19,6 +19,7 @@ import Security from "./pages/Security";
 import HelpSupport from "./pages/HelpSupport";
 import Pricing from "./pages/Pricing";
 import NotificationsSettings from "./pages/NotificationsSettings";
+import { Analytics } from "@vercel/analytics/react";
 
 function App() {
   return (
@@ -113,6 +114,8 @@ function App() {
           }
         />
       </Routes>
+
+      <Analytics />
     </BrowserRouter>
   );
 }

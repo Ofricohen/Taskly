@@ -6,15 +6,23 @@ import {
   FiShield,
   FiHelpCircle,
   FiChevronRight,
+  FiMessageCircle,
+  FiX,
 } from "react-icons/fi";
 import Footer from "../components/Footer";
 import UserAvatar from "../components/UserAvatar";
 import NotificationsButton from "../components/NotificationsButton";
 import { useNavigate } from "react-router-dom";
+import { supabase } from "../lib/supabase";
 
 function Settings() {
   const navigate = useNavigate();
+
   const [theme, setTheme] = useState("light");
+  const [isFeedbackOpen, setIsFeedbackOpen] = useState(false);
+  const [feedbackType, setFeedbackType] = useState("Suggestion");
+  const [feedbackMessage, setFeedbackMessage] = useState("");
+  const [feedbackStatus, setFeedbackStatus] = useState("");
 
   useEffect(() => {
     const savedTheme = localStorage.getItem("taskly-theme") || "light";
@@ -29,6 +37,45 @@ function Settings() {
     setTheme(newTheme);
     localStorage.setItem("taskly-theme", newTheme);
     document.body.classList.toggle("dark-mode", newTheme === "dark");
+  };
+
+  const handleSubmitFeedback = async () => {
+    setFeedbackStatus("");
+
+    if (!feedbackMessage.trim()) {
+      setFeedbackStatus("Please write your feedback first.");
+      return;
+    }
+
+    const {
+      data: { user },
+      error: userError,
+    } = await supabase.auth.getUser();
+
+    if (userError || !user) {
+      setFeedbackStatus("You must be logged in to send feedback.");
+      return;
+    }
+
+    const { error } = await supabase.from("feedback").insert({
+      user_id: user.id,
+      type: feedbackType,
+      message: feedbackMessage,
+    });
+
+    if (error) {
+      setFeedbackStatus(error.message);
+      return;
+    }
+
+    setFeedbackStatus("Thanks! Your feedback was sent.");
+    setFeedbackMessage("");
+    setFeedbackType("Suggestion");
+
+    setTimeout(() => {
+      setIsFeedbackOpen(false);
+      setFeedbackStatus("");
+    }, 1200);
   };
 
   return (
@@ -83,7 +130,7 @@ function Settings() {
               <FiShield size={20} />
               <div>
                 <h4>Account Security</h4>
-                <p>Reset Password </p>
+                <p>Reset Password</p>
               </div>
             </div>
 
@@ -105,13 +152,27 @@ function Settings() {
 
             <FiChevronRight />
           </button>
+
+          <button
+            className="settings-row"
+            type="button"
+            onClick={() => setIsFeedbackOpen(true)}
+          >
+            <div className="row-left">
+              <FiMessageCircle size={20} />
+              <div>
+                <h4>Send Feedback</h4>
+                <p>Share bugs, ideas, or questions</p>
+              </div>
+            </div>
+
+            <FiChevronRight />
+          </button>
         </section>
 
         <section className="pro-card" onClick={() => navigate("/pricing")}>
           <h2>Taskly Pro</h2>
-
           <p>Unlock advanced analytics and team sync.</p>
-
           <button type="button">View Plans</button>
         </section>
 
@@ -119,6 +180,66 @@ function Settings() {
           <p>Taskly Version 2.4.0</p>
           <span>Crafted for Efficient Living</span>
         </section>
+
+        {isFeedbackOpen && (
+          <div className="feedback-overlay">
+            <section className="feedback-modal">
+              <header className="feedback-header">
+                <div>
+                  <h2>Send Feedback</h2>
+                  <p>Help us improve Taskly.</p>
+                </div>
+
+                <button
+                  className="feedback-close"
+                  type="button"
+                  onClick={() => setIsFeedbackOpen(false)}
+                >
+                  <FiX size={20} />
+                </button>
+              </header>
+
+              <label>Type</label>
+              <select
+                value={feedbackType}
+                onChange={(event) => setFeedbackType(event.target.value)}
+              >
+                <option>Suggestion</option>
+                <option>Bug</option>
+                <option>Question</option>
+              </select>
+
+              <label>Message</label>
+              <textarea
+                placeholder="What should we improve?"
+                value={feedbackMessage}
+                onChange={(event) => setFeedbackMessage(event.target.value)}
+              />
+
+              {feedbackStatus && (
+                <p className="feedback-status">{feedbackStatus}</p>
+              )}
+
+              <div className="feedback-actions">
+                <button
+                  className="feedback-cancel"
+                  type="button"
+                  onClick={() => setIsFeedbackOpen(false)}
+                >
+                  Cancel
+                </button>
+
+                <button
+                  className="feedback-submit"
+                  type="button"
+                  onClick={handleSubmitFeedback}
+                >
+                  Submit
+                </button>
+              </div>
+            </section>
+          </div>
+        )}
 
         <Footer />
       </section>

@@ -1492,7 +1492,7 @@
   cursor: pointer;
 }
 
-.settings-row:first-child {
+.settings-row:not(:last-child) {
   border-bottom: 1px solid var(--outline);
 }
 
@@ -2717,4 +2717,134 @@ body.dark-mode .pricing-card.featured {
 
 .toggle.active::after {
   left: 21px;
+}
+.feedback-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background: rgba(21, 28, 39, 0.45);
+
+  padding: 24px;
+}
+
+.feedback-modal {
+  width: 100%;
+  max-width: 360px;
+
+  background: var(--surface);
+  border: 1px solid var(--outline);
+  border-radius: var(--radius-xl);
+
+  padding: 24px;
+
+  box-shadow: var(--shadow-md);
+}
+
+.feedback-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+
+  margin-bottom: 16px;
+}
+
+.feedback-header h2 {
+  margin: 0;
+  color: var(--text);
+}
+
+.feedback-header p {
+  margin-top: 4px;
+  color: var(--text-muted);
+}
+
+.feedback-close {
+  width: 36px;
+  height: 36px;
+
+  border: none;
+  border-radius: 50%;
+
+  background: var(--surface-container);
+
+  cursor: pointer;
+}
+
+.feedback-modal label {
+  display: block;
+
+  margin-top: 16px;
+  margin-bottom: 8px;
+
+  font-size: 12px;
+  font-weight: 700;
+
+  color: var(--text-muted);
+}
+
+.feedback-modal select,
+.feedback-modal textarea {
+  width: 100%;
+
+  border: 1px solid var(--outline);
+  border-radius: var(--radius-md);
+
+  background: var(--surface-container);
+
+  padding: 12px;
+
+  color: var(--text);
+}
+
+.feedback-modal textarea {
+  min-height: 120px;
+  resize: none;
+}
+
+.feedback-actions {
+  display: flex;
+  gap: 12px;
+
+  margin-top: 20px;
+}
+
+.feedback-actions button {
+  flex: 1;
+  height: 44px;
+
+  border: none;
+  border-radius: var(--radius-md);
+
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.feedback-cancel {
+  background: var(--surface-container);
+  color: var(--text-muted);
+}
+
+.feedback-submit {
+  background: var(--primary-gradient);
+  color: white;
+}
+
+.feedback-status {
+  margin-top: 12px;
+
+  padding: 12px;
+
+  border-radius: var(--radius-md);
+
+  background: rgba(34, 197, 94, 0.1);
+
+  color: #22c55e;
+
+  text-align: center;
+  font-weight: 600;
 }
