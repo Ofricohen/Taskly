@@ -115,7 +115,7 @@ Key differentiators include:
 
 # Technologies Used
 
-### Frontend
+## Frontend
 
 - React
 - Vite
@@ -123,21 +123,35 @@ Key differentiators include:
 - CSS
 - React Icons
 
-### Backend
+## Backend
 
 - Supabase Authentication
 - Supabase Database
 - Supabase Storage
 
-### Deployment & Analytics
+## Deployment & Analytics
 
 - Vercel
 - Vercel Analytics
 - Microsoft Clarity
 
-### Version Control
+## Version Control
 
 - GitHub
+
+---
+
+# Architecture
+
+Taskly follows a modern client-server architecture:
+
+- React + Vite Frontend
+- Supabase Authentication
+- Supabase PostgreSQL Database
+- Supabase Storage
+- Vercel Deployment
+- Microsoft Clarity Analytics
+- Vercel Analytics
 
 ---
 
@@ -176,6 +190,16 @@ Stores user feedback messages.
 - One Task → Many Subtasks
 - One Task → Many Attachments
 - One User → Many Feedback Messages
+
+---
+
+# Entity Relationship Diagram (ERD)
+
+The database schema was designed and implemented using Supabase PostgreSQL.
+
+The ERD below represents the actual database structure used in the application, including entities, attributes, primary keys, foreign keys, and relationships.
+
+![Entity Relationship Diagram](screenshots/entity-relationship-diagram.png)
 
 ---
 
@@ -232,6 +256,18 @@ src/
 ├── App.css
 ├── main.jsx
 └── index.css
+
+screenshots/
+├── login.png
+├── dashboard.png
+├── task-details.png
+├── settings.png
+└── entity-relationship-diagram.png
+
+README.md
+DESIGN.md
+package.json
+vite.config.js
 ```
 
 ---
