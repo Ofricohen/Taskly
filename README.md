@@ -97,19 +97,19 @@ Key differentiators include:
 
 ### Login Screen
 
-_Add screenshot here_
+![Login Screen](screenshots/login.png)
 
 ### Today Dashboard
 
-_Add screenshot here_
+![Today Dashboard](screenshots/dashboard.png)
 
 ### Task Details
 
-_Add screenshot here_
+![Task Details](screenshots/task-details.png)
 
 ### Settings Page
 
-_Add screenshot here_
+![Settings Page](screenshots/settings.png)
 
 ---
 
